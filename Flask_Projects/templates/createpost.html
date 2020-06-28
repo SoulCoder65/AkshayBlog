@@ -1,0 +1,86 @@
+{% extends 'base.html'%}
+{% block head %}
+    <title>{{ title }}</title>
+    <style>
+    .create-content-css{
+    width: 50%;
+    margin-left: 30%;
+    margin-top: 5%;
+    font-weight: bold;
+    }
+    .create-btn-css{
+    background-color:#c70039;
+    }
+    #create-head-css
+    {
+    font-family: bold,italic;
+    
+    }
+    #create-wrap-css{
+    white-space: pre-wrap;
+    }
+    #create-img-css{
+        width: 25%;
+
+        margin-left: 38%;
+    }
+    @media only screen and (max-width: 600px) 
+    {
+        #create-head-css{
+            font-size: 150%;
+            margin-bottom: 5%;
+        }
+        .create-content-css{
+            width: 80%;
+            margin-left: 12%;
+        }
+        #create-wrap-css
+        {
+            height:150px;
+        }
+    }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <img id="create-img-css" src="/static/createpost.png">
+    <div class="content-section create-content-css" >
+       
+        <h3 id="create-head-css">Create/Update a Post</h3>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group" autocomplete="off" >
+                
+                <div class="form-group">
+                    {{ form.title.label(class="form-control-label") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.content.label(class="form-control-label") }}
+                    {% if form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control form-control-lg ", id="create-wrap-css") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group " >
+                {{ form.submit(class="btn btn-outline-info create-btn-css") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

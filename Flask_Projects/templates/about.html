@@ -1,0 +1,107 @@
+{% extends 'base.html'%}
+{% block head %}
+	<title>{{ title }}</title>
+	<style>
+	
+	</style>
+
+{% endblock %}
+{% block content %}
+	
+	<div>
+		<img src="static/social.png" id="img-css">
+		<div class="about-content">
+			<h3 class="head-css" ><b>About Us</b></h3>
+			<p>Welcome to Soul Blog.You can write,post and views blogs here. you are free to write your views,your stories,tips and experience .</p>
+			<img src="static/aboutimg.png" id="aboutimg" >
+			<div class="about-content developer-text" id="about-dev">
+				<h3 class="head-css" ><b>Developer</b></h3>
+				<p style="word-wrap: break-word">Hey!! This is <b>Akshay Saxena.</b> 	Computer Science Student of MIT. This is my first flask Site Hope you guys like it. I know more improvement needed and i will definitely work on it.<br>
+					--Akshay Saxena
+				</p>
+			</div>
+		</div>
+		
+	</div>
+
+	
+	<div class="container contact-form " style="margin-bottom: 0%;">
+		<h3 id="contact-head"><b>Contact Us</b></h3>
+		<div class="contact-image">
+			<img id="cont-img"  src="static/contact_page.png" alt="contact" />
+		</div>
+		<form method="POST" autocomplete="off">
+			{{ form.hidden_tag() }}
+			<h3 id="drop-css">Drop Us a Message</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						{% if form.name.errors %}
+							{{ form.name(class="form-control form-control-lg is-invalid mb-4")}}
+							<div class="invalid-feedback">
+								{% for error in form.name.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.name(class="form-control is-invalid",placeholder="Name")}}
+						{% endif %}
+					</div>
+					<div class="form-group">
+						{% if form.email.errors %}
+							{{ form.email(class="form-control form-control-lg is-invalid mb-4")}}
+							<div class="invalid-feedback">
+								{% for error in form.email.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.email(class="form-control is-invalid",placeholder="E-mail")}}
+						{% endif %}
+					</div>
+					<div class="form-group">
+						{% if form.phone.errors %}
+							{{ form.phone(class="form-control form-control-lg is-invalid mb-4")}}
+							<div class="invalid-feedback">
+								{% for error in form.phone.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.phone(class="form-control is-invalid",placeholder="Phone")}}
+						{% endif %}
+					</div>
+					
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						{% if form.message.errors %}
+							{{ form.message(class="form-control form-control-lg is-invalid mb-4")}}
+							<div class="invalid-feedback">
+								{% for error in form.message.errors %}
+									<span>{{ error }}</span>
+								{% endfor %}
+							</div>
+						{% else %}
+							{{ form.message(class="form-control is-invalid",placeholder="Message...",id="msg-css")}}
+						{% endif %}
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" id="submit-css" name="btnSubmit" class="btnContact " value="Send Message" />
+				</div>
+			</div>
+		</form>
+		</div>
+		<!-- FOLLOW US -->
+		<div class="social-media-icon
+		">
+			<h3 id="follow-us-css">Follow us on</h3>
+			<div class="container-fluid media-icons "></div>
+			<a class="social-css" href="https://github.com/SoulCoder65 "target='_blank'><img src="static/github.png"></a>
+			<a class="social-css" href="https://www.linkedin.com/in/akshay-saxena-74b676196/"target='_blank'><img src="static/linkedin.png"></a>
+			<a class="social-css" href="https://www.facebook.com/akshay.saxena.589/" target='_blank'><img src="static/facebook.png"></a>
+			<a class="social-css" href="https://www.instagram.com/_ak_sh__ay/"target='_blank' ><img src="static/instagram.png"></a>
+			
+		</div>
+	{% endblock content %}

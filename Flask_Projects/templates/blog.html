@@ -1,0 +1,113 @@
+{% extends 'base.html'%}
+{% block head %}
+  <title>{{ title }}</title>
+  <style>
+      input::-webkit-calendar-picker-indicator
+      {
+      display: none;
+      }
+      #button-color{
+        background-color: #c70039;
+
+      }
+      .blog-css-align{
+        align-items: center;
+        padding-left: 30%;
+        margin-top: 8%;
+      }
+      .card-css-align{
+        width: 60%; 
+        border: 0px;
+      }
+      p{
+        white-space: pre-wrap;
+      }
+      #usertag{
+          color: #3f3f44;
+      }
+      .page-css{
+          align-items: center; margin-left: 29%
+      }
+      #time-css{
+          color: #184d47; 
+          float: right;
+      }
+
+      @media only screen and (max-width: 600px) {
+           .card-css-align{
+            width: 80%;
+            margin-left: 10%;
+           }  
+           .blog-css-align{
+              align-items: center;
+              padding-left: 0%;
+              margin-top: 8%;
+          } 
+          .article-img{
+            width: 25%;
+          }
+        }
+  </style>
+  
+  
+{% endblock %}
+{% block nav_search%}
+  <form class="form-inline my-2 my-lg-0" action="{{url_for('posts.search')}}" method="post" autocomplete="off">
+    <input class="form-control mr-sm-2 customselect" type="text" placeholder="Search" list="blog_title"name="blogtitle"  >
+    
+    <datalist id="blog_title"  >
+    <optgroup label="Post Title" >
+      {% for post in posts_list%}
+        <option value="{{post}}">{{post}}</option>
+        {%endfor%}
+      </optgroup>
+      <optgroup label="Post Author">
+        {% for user in user_names%}
+          <option value="{{user}}">{{user}}</option>
+          {%endfor%}
+        </optgroup>
+        </datalist>
+        <button type="submit" class="btn btn-outline-dark my-2 my-sm-0" id="button-color"  >Search</button>
+        
+      </form>
+      {%endblock%}
+      
+      {% block content%}
+        
+        
+        <div class="blog-css-align">
+          {% for post in posts.items %}
+            <div class="card card-css card-css-align">
+              <div class="card-header blog-css" >
+                <img class="article-img" src="{{ url_for('static', filename='profilepic/' + post.author.img_file) }}">
+                
+                <a class="mr-2" id="usertag" href="{{ url_for('users.userposts', username=post.author.username) }}">{{ post.author.username }}</a>
+                <small class="text-muted"> <span id="time-css"> {{ post.date_post.strftime('%Y-%m-%d') }}
+                </span> </small>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><b>{{post.title}}</b></h5>
+                <p class="card-text">{{post.content|truncate(100, True)}}</p>
+                <a href="{{url_for('posts.post',post_id=post.id)}}" class="btn btn-primary"><b>View Full</b></a>
+              </div>
+            </div>
+            <div>
+              <br>
+            </div>
+          {% endfor%}
+          
+        </div>
+        <div class="container-fluid page-css" >
+          {% for page_num in posts.iter_pages( left_edge=1,right_edge=1,left_current=1,right_current=3)%}
+            {% if page_num%}
+              {% if posts.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('main.homepage', page=page_num) }}">{{ page_num }}</a>
+              {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('main.homepage', page=page_num) }}">{{ page_num }}</a>
+              {% endif %}
+            {% else %}
+              ....
+              {%endif%}
+              {%endfor%}
+            </div>
+          {% endblock%}

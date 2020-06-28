@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Odibee+Sans&family=Roboto+Slab:wght@600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="static/base.css">
+    {% block head %} {% endblock %}
+
+    <link rel="icon"  href="static/favicon.png">
+
+    <!-- BOOTSTRAP VALIDATION -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script> 
+    <style>
+    body{
+        background-image:linear-gradient(90deg,#ddf3f5,#3da4ab);
+    }
+</style>
+  </head>
+  <body>
+  
+    <nav class="navbar navbar-expand-lg navbar-light navbar-trans"  >
+      <a class="navbar-brand" href="#"><i class="fa fa-book" aria-hidden="true"></i> SoulBlog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('main.homepage')}}"><i class="fa fa-home" aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{url_for('main.about')}}"><i class="fa fa-info-circle" aria-hidden="true"></i> About us</a>
+          </li>
+          
+          {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link " href="{{ url_for('posts.newpost')}}"><i class="fa fa-plus" aria-hidden="true"></i> New Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{{ url_for('users.logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{{ url_for('users.account')}}"><i class="fa fa-user" aria-hidden="true"></i> Account</a>
+            </li>
+          {% else%}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.signin') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="{{ url_for('users.registration')}}"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign-up</a>
+            </li>
+          {% endif %}
+        </ul>
+        {% block nav_search%}
+
+        {%endblock%}
+        
+      </div>
+    </nav>
+   
+    <div class="col-md-4" >
+      {% with messages=get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category,message in messages%}
+          <div   class="alert alert-{{ category }} text-center">
+            {{ message}}
+          </div>
+        {% endfor %}
+      {% endif%}
+    {% endwith %}
+  </div>
+  <div>
+
+
+    
+  {%block content%}
+  {%endblock%}
+  
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+</body>
+</html>

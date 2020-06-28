@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block head %}
+<title>{{ title }}</title>
+<style >
+    
+/* RESET FORM */
+
+.reset-container{
+        width: 50%;
+        font-weight: bold;
+        margin-top: 10%;   
+    }
+    #img-reset{
+        margin-left: 20%;
+        width: 30%;
+    }
+    .reset-btn-css{
+        background-color:#c70039;
+    }
+     @media only screen and (max-width: 600px)
+     {
+        #img-reset
+        {
+            margin-left: 27%;
+            width: 40%;
+         }
+        #reset-label{
+            font-size: 120%;
+            margin-top: 10%;
+        }
+        .reset-btn-css
+        {
+            width: 50%;
+            font-size: 90%;
+            font-weight: bold;
+        }
+        .reset-form-css{
+            width: 100%;
+            margin-top: 14%;
+        }
+        
+     }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid reset-container reset-form-css">
+        
+        <img id="img-reset" src="static/resetpassicon.png" >
+        
+        <form method="POST" action="" autocomplete="off">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4 " id="reset-label">Reset Password</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid ") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info reset-btn-css") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block head %}
+  <style>
+  .userpost-cont-css{
+  width: 50%;
+  }
+  .card{
+  width: 90%;
+  border: 0px;
+  }
+  .card-header{
+  font-family:'Roboto Slab', serif;
+  background-color:#16817a;
+  font-size: 130%;
+  }
+  .article-img{
+  border-radius: 60%;
+  width: 16%;
+  }
+  .card-text{
+  white-space: pre-wrap;
+  }
+  #user-css{
+  color: #d92027;
+  }
+  #time-css{
+  color: #184d47;
+  float: right;
+  }
+  .btnhome-css{
+    margin-top: 30%;
+  
+
+  }
+   #usertag{
+      color: #3f3f44;
+  }
+  @media only screen and (max-width:600px)
+  {
+  .userpost-cont-css{
+  width: 90%;
+  }
+  #userpost-head{
+  font-size: 130%;
+  font-weight: bold;
+  }
+  .card{
+  margin-top: 10%;
+  margin-left: 5%;
+  }
+  #usertag{
+     font-size: 80%;
+  }
+  .article-img{
+    width: 36%;
+  }
+  
+  }
+  </style>
+  <title>{{ title }}</title>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid mt-4 userpost-cont-css">
+    <h1 class="mb-3" id="userpost-head">Posts by {{ user.username }} ({{ posts.total }})</h1>
+    {% for post in posts.items %}
+      <div class="card card-css card-css-align">
+        <div class="card-header blog-css" >
+          <img class="article-img" src="{{ url_for('static', filename='profilepic/' + post.author.img_file) }}">
+          
+          <a class="mr-2" id="usertag" href="{{ url_for('users.userposts', username=post.author.username) }}">{{ post.author.username }}</a>
+          <small class="text-muted"> <span id="time-css"> {{ post.date_post.strftime('%Y-%m-%d') }}
+          </span> </small>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><b>{{post.title}}</b></h5>
+          <p class="card-text">{{post.content|truncate(100, True)}}</p>
+          <a href="{{url_for('posts.post',post_id=post.id)}}" class="btn btn-primary"><b>View Full</b></a>
+        </div>
+      </div>
+    
+      <br>
+    
+    
+
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if posts.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('users.userposts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('users.userposts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+    <div>
+    <a class="btn btn-warning btn-md mt-1 mb-1 btnhome-css" href="{{ url_for('main.homepage') }}">Home Page</a>
+  </div>
+  </div>
+{% endblock content %}

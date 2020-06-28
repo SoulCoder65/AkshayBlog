@@ -1,0 +1,126 @@
+{% extends 'base.html'%}
+{% block head %}
+    <title>{{ title }}</title>
+    <style >
+        .sign-forms-css{
+            background-image:linear-gradient(#d4f3ef,#0fabbc);
+            
+                 
+        }
+        .contact-form{
+            margin-top: 8%;
+            width: 100%;
+            border: 38px;
+
+
+        }
+        #signin-img{
+            width: 40%;
+            margin-bottom: 7%;
+        }
+        .signin-btn{
+            background-color: #c70039;
+            color: black;
+            border: 0px;
+        }
+        #forget{
+            color: #07031a;
+        }
+        #remember{
+                color: #07031a;
+
+        }
+         .small-devices  {
+                color: #111d5e;
+                font-weight: bold;
+            }
+
+        @media only screen and (max-width: 600px) {
+            .sign-forms-css
+            {
+                width: 95%;
+                margin-top: 40%;
+                margin-left: 3%;
+                border-radius: 0%;
+            }
+            .small-devices  {
+                font-size: 100%;
+                margin-left: 0px;
+            }
+            #forget{
+                font-size: 80%;
+            }
+            #remember{
+                 font-size: 80%;
+                 
+            }
+            .form-group{
+                margin-left: -10%;
+                margin-right: -10%;
+            }
+            #signin-img{
+            width: 45%;
+            margin-top: 3%;
+        }
+            }
+
+    </style>
+{% endblock %}
+{% block content%}
+    <!-- Default form login -->
+    <div class="container-fluid col-lg-4 bd-3  contact-form ">
+        <form class="text-center  border-light p-5 sign-forms-css" method="POST" autocomplete="off"  >
+            {{ form.hidden_tag() }}
+            <img id="signin-img" src="static/loginuser.png">
+            <p class="h4 mb-4"><b><i>Sign-in</i></b>  </p>
+            <div class="form-group mt-6">
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid mb-4",placeholder="E-mail")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg is-invalid small-devices",placeholder="E-mail")}}
+                {% endif %}
+            </div>
+            <div class="form-group mt-3" >
+                
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid mb-4",placeholder="Password")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <!-- Password -->
+                    {{ form.password(class="form-control form-control-lg  mb-4 small-devices",placeholder="Password")}}
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-around">
+                <div>
+                    <!-- Remember me -->
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="remember" class="custom-control-input" id="defaultLoginFormRemember">
+                        <label id="remember" class="custom-control-label" for="defaultLoginFormRemember">Remember </label>
+                    </div>
+                </div>
+                <div>
+                    <!-- Forgot password -->
+                    <a id="forget" href="{{ url_for('users.reset_request') }}">Forgot password?</a>
+                </div>
+            </div>
+            <!-- Sign in button -->
+            <div>
+                {{ form.submit(class="btn btn-outline-warning btn-rounded btn-block my-4 waves-effect z-depth-3 signin-btn")}}
+            </div>
+            <!-- Sign-in -->
+            <p>Not a memeber?
+                <a href="{{url_for('users.registration')}}"><span class="small-devices" > Sign-up </span></a>
+                
+            </p>
+        </form>
+    </div>
+{% endblock%}

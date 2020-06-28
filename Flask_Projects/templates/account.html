@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>{{ title }}</title>
+    <style>
+    .content-section{
+    margin-top: 3%;
+    }
+    .media-body{
+    font-weight: bold;margin-top: 3%;
+    }
+    .text{
+    color: #07031a;
+    }
+    .account-cont-css{
+    width: 50%;
+    }
+    .account-form-css{
+    font-weight: bold;
+    }
+    .account-field-css{
+    font-weight: bold;
+    }
+    #account-btn-css{
+    font-weight:bold;
+    background-color:#c70039;
+    border:0px;
+    }
+    .file-css{
+        padding-top: 5%;
+    }
+    @media only screen and (max-width: 600px) {
+           .account-img{
+            width: 30%;
+           }
+           .account-cont-css{
+                width: 90%;
+
+           }
+           .form-group{
+            position: relative;
+            size: 100%;
+            
+
+           }
+           .form-group{
+            padding-top: 2%;
+           }
+    
+           }
+    
+    
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="content-section" align="center">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media">
+            
+            <div class="media-body" >
+                <h2 class="account-heading">{{ current_user.username }}</h2>
+                <p class="text">{{ current_user.email }}</p>
+            </div>
+        </div>
+        <div class="container-fluid account-cont-css">
+            <form method="POST" action="" enctype="multipart/form-data" class="account-form-css" autocomplete="off" >
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Account Info</legend>
+                    <div class="form-group">
+                        {{ form.username.label(class="form-control-label") }}
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control form-control-lg is-invalid account-field-css") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username(class="form-control form-control-lg account-field-css") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid account-field-css") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg account-field-css") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.picture.label() }}
+                        {{ form.picture(class="form-control-file file-css") }}
+                        {% if form.picture.errors %}
+                            {% for error in form.picture.errors %}
+                                <span class="text-danger">{{ error }}</span></br>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info",id="account-btn-css") }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

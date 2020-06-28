@@ -1,0 +1,118 @@
+{% extends 'base.html'%}
+{% block head %}
+    <title>{{ title }}</title>
+    <style>
+    .back-css{
+    background-image:linear-gradient(#d4f3ef,#0fabbc);
+    }
+    .contact-form{
+    margin-top: 8%;
+    }
+    .field-css{
+    margin-top: 10%;
+    }
+    .register-btn{
+    background-color: #c70039;
+    color: black;
+    border: 0px;
+    }
+    #register-img{
+    width: 50%;
+    margin-bottom: 7%;
+    }
+    .small-devices  {
+    color: #111d5e;
+    font-weight: bold;
+    }
+    @media only screen and (max-width: 600px) {
+    .back-css
+    {
+    width: 90%;
+    margin-top: 20%;
+    margin-left: 6%;
+    
+    }
+    .small-devices  {
+    font-size: 100%;
+    margin-left: 0px;
+    }
+    .form-group{
+    margin-left: -10%;
+    margin-right: -10%;
+    }
+    #register-img{
+    width: 60%;
+    
+    }
+    }
+    </style>
+{% endblock %}
+{% block content%}
+    <!-- Default form login -->
+    <div class="container-fluid col-lg-4 bd-3 container contact-form" style="width: 100%">
+        <form class="text-center  border-light p-5 back-css"  method="POST"autocomplete="off">
+            {{ form.hidden_tag() }}
+            <img id="register-img" src="static/registeruser.png">
+            <p class="h4 mb-4"><b><i>Register Today</i></b></p>
+            <div class="form-group label-decoration" >
+                {% if form.username.errors %}
+                    {{ form.username(class="form-control form-control-lg is-invalid mb-4",placeholder="Name")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control form-control-lg is-invalid small-devices",placeholder="Name")}}
+                {% endif %}
+            </div>
+            <div class="form-group mt-3 field-css">
+                
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid mb-4",placeholder="E-mail")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control form-control-lg is-invalid small-devices",placeholder="E-mail")}}
+                {% endif %}
+            </div>
+            <div class="form-group mt-3 field-css"  >
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid mb-4",placeholder="Password")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <!-- Password -->
+                    {{ form.password(class="form-control form-control-lg  mb-4 small-devices",placeholder="Password")}}
+                {% endif %}
+            </div>
+            <div class="form-group mt-3 field-css">
+                {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control form-control-lg is-invalid mb-4",placeholder="Confirm Password")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <!-- Password -->
+                    {{ form.confirm_password(class="form-control form-control-lg  mb-4 small-devices",placeholder="Confirm Password")}}
+                {% endif %}
+            </div>
+            <!-- Sign up button -->
+            <div >
+                {{ form.submit(class="btn btn-outline-warning btn-rounded btn-block my-4 waves-effect z-depth-3 register-btn")}}
+            </div>
+            <!-- Sign-in -->
+            <p>Already a member?
+                <a href="{{ url_for('users.signin') }}"><span class="small-devices" > Sign-in </span></a>
+            </p>
+        </form>
+    </div>
+{% endblock%}

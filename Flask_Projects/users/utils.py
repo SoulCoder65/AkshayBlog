@@ -1,12 +1,17 @@
 import os
-import secrets
+
 from PIL import Image
 from flask_mail import Message
 from flask import url_for, current_app
 from Flask_Projects import mail
+import random
+import string
 
+def generate_key(length):
+    return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(length))
+generate_key(10)
 def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
+    random_hex = generate_key(10)
     _, f_ext = os.path.splitext(form_picture.filename)
 
     picture_fn = random_hex + f_ext

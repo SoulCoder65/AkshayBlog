@@ -22,7 +22,7 @@ def homepage():
     posts_author=[]
     user_names=[]
     for post in posts.items:
-        print(post.content)
+       
         posts_list.append(post.title)
 
     for user in users:

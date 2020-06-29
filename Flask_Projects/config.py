@@ -22,6 +22,6 @@ class Config:
 	MAIL_PORT = 587
 	MAIL_USE_TLS = True
 	MAIL_USERNAME =os.getenv("EMAIL")
-	print(MAIL_USERNAME)
+	
 	
 	MAIL_PASSWORD =os.getenv("EMAIL_PASS")

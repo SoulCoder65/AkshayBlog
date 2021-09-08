@@ -7,7 +7,7 @@ itsdangerous==0.24
 WTForms==2.3.1
 Flask_WTF==0.14.3
 Flask_Bcrypt==0.7.1
-Pillow==7.1.2
+Pillow==8.3.2
 python-dotenv==0.13.0
 gunicorn==19.7.1
 bcrypt==3.1.4
